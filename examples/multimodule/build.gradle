@@ -1,0 +1,64 @@
+/**
+ * Example Multi-Module project
+ */
+defaultTasks 'assemble'
+
+buildscript {
+    repositories { flatDir(dirs: "${rootProject.projectDir}/../../build/libs") }
+    dependencies { classpath 'net.desource.gradle:gradle-gwt-plugin:0.3-SNAPSHOT' }
+}
+
+group = 'net.desource.samples'
+artifactId = 'multimodule'
+version = '0.2-SNAPSHOT'
+
+subprojects {
+
+  apply plugin: 'java'
+
+  sourceCompatibility = 1.5
+  targetCompatibility = 1.5
+
+  repositories {
+      mavenCentral()
+  }
+
+  dependencies {
+      compile 'com.google.gwt.inject:gin:1.0@jar', 'com.google.gwt.inject:guice:2.0@jar', 'aopalliance:aopalliance:1.0@jar'
+      testCompile 'junit:junit:4.7@jar', 'org.mockito:mockito-all:1.8.1@jar'
+  }
+
+  test {
+    ignoreFailures = true
+    jvmArgs '-Xmx256m', '-XX:+HeapDumpOnOutOfMemoryError'
+  }
+
+}
+
+
+project(":common") {
+
+  apply plugin: 'war'
+  apply plugin: 'gwt2'
+
+  gwtVersion = '2.0.4'
+  gwtArchiveAllSource = true
+}
+
+project(":client") {
+
+  apply plugin: "jetty"
+  apply plugin: 'gwt2'
+
+  dependencies {
+    compile project(":common")
+  }
+
+  [jettyRun, jettyRunWar]*.contextPath = '/'
+
+  gwtVersion = '2.0.4'
+  gwtModules = ['sample.Client']
+  gwtStartupUrls = ['/']
+
+}
+

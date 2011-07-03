@@ -1,5 +1,5 @@
 /*
-   Copyright 2010 Distinctive Edge Ltd
+   Copyright 2011 the original author or authors.
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import org.gradle.api.tasks.TaskAction
  *
  * @author Markus Kobler
  */
-class CompileGwtTask extends AbstractGwtTask {
+class CompileGwt extends AbstractGwtTask {
     
     static final String COMPILER_CLASSNAME = 'com.google.gwt.dev.Compiler'
 
@@ -39,7 +39,7 @@ class CompileGwtTask extends AbstractGwtTask {
     int localWorkers
 
 
-    def CompileGwtTask() {
+    def CompileGwt() {
         localWorkers = Runtime.getRuntime().availableProcessors();
     }
 
@@ -58,7 +58,7 @@ class CompileGwtTask extends AbstractGwtTask {
 
         if( modules == null || modules.size == 0 ) throw new StopActionException("No modules specified");
 
-        configureAntClasspath(getProject().getAnt(), getClasspath())
+        configureAntClasspath(getProject().ant, getClasspath())
 
         Map otherArgs = [
             classpathref: GWT_CLASSPATH_ID,

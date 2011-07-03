@@ -1,0 +1,6 @@
+@sprite .footer {
+    gwt-image: 'footer';
+    position: relative;
+    left: -71px;
+    width: 143px;
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui">
+
+    <ui:with field="res" type="net.desource.samples.fortune.client.ui.Resources"/>
+
+    <ui:style>
+        @external .fortuneTeller;
+        .fortuneTeller {
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            color: #fff;
+            font-family: 'Century Gothic', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 18px;
+        }
+        .fortune {
+            min-height: 2em;
+            padding: 2em;
+        }
+        .button {
+            -webkit-box-shadow: rgba(0, 0, 0, 0.199219) 1px 1px 3px;
+            -webkit-box-sizing: border-box;
+            border: 1px solid #999;
+            background: #5b3366;
+            border-radius: 8px 8px;
+            margin: 0 auto 1em auto;
+            padding: 6px;
+            text-align: center;
+            width: 80%;
+            cursor: pointer;
+        }
+        .footer {
+            width: 143px;
+            display: block;
+            position: fixed;
+            bottom: 1px;
+            margin: 0 auto 0 auto;
+            left: 50%;
+            text-decoration: none;
+        }
+        .footer div {
+            overflow: hidden;
+        }
+        .footer div span {
+            position: relative;
+            left: -1000px;
+        }
+    </ui:style>
+
+    <g:HTMLPanel styleName="{style.fortuneTeller}">
+        <div class="{style.fortune}" ui:field="fortune">What does the fortune hold?</div>
+        <g:HTML styleName="{style.button}" ui:field="revealFortune">Reveal Fortune</g:HTML>
+        <a href="http://www.distinctive.co/" target="_blank" class="{style.footer}"><div class="{res.styles.footer}"><span>Distinctive Edge</span></div></a>
+    </g:HTMLPanel>
+
+</ui:UiBinder>

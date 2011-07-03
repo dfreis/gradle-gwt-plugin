@@ -1,0 +1,76 @@
+/**
+ * A simple selfcontained webapp that demonstrates a number of GWT plugin features
+ */
+defaultTasks 'assemble'
+
+buildscript {
+    repositories { flatDir(dirs: "${rootProject.projectDir}/../../build/libs") }
+    dependencies { classpath 'net.desource.gradle:gradle-gwt-plugin:0.3-SNAPSHOT' }
+}
+
+apply plugin: 'jetty'
+apply plugin: 'gwt2'
+
+group = 'net.desource.samples'
+artifactId = 'fortune'
+version = '0.3-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    repositories { flatDir(dirs: "${rootProject.projectDir}/../../repo") }
+}
+
+
+sourceCompatibility = 1.5
+targetCompatibility = 1.5
+
+dependencies {
+    gwt 'aopalliance:aopalliance:1.0@jar',
+        'javax.inject:javax.inject:1@jar',
+        'javax.validation:validation-api:1.0.0.GA',
+        'javax.validation:validation-api-sources:1.0.0.GA',
+        'com.google.gwt.inject:gin:1.5.0@jar',
+        'com.google.inject:guice:3.0@jar',
+        'com.google.inject.extensions:guice-assistedinject:3.0@jar',
+        'com.google.gwt:gwt-user:2.3.0@jar',
+        'com.google.gwt:gwt-dev:2.3.0@jar'
+
+    testCompile 'junit:junit:4.7@jar', 'org.mockito:mockito-all:1.8.1@jar'
+}
+
+[jettyRun, jettyRunWar]*.contextPath = '/'
+
+test {
+  ignoreFailures = true // TODO check if this is still needed (think to enable hudson integration...)
+  jvmArgs '-Xmx256m', '-XX:+HeapDumpOnOutOfMemoryError'
+}
+
+// **************** Standard GWT configuration ****************** //
+gwtModules     = ['net.desource.samples.fortune.App']
+
+
+// *************** Advanced Config properties ******************** //
+/*
+gwtDevMode {
+  noserver        = true                        // Prevents the embedded web server from running
+  whitelist       = .*google\.com               // Allows the user to browse URLs that match the specified regexes (comma or space separated)
+  blacklist       = .*facebook.com,.*oracle.com // Prevents the user browsing URLs that match the specified regexes (comma or space separated)
+  port            = 8888                        // Specifies the TCP port for the embedded web server
+  logDir          = file("{}")                  // The level of logging detail: ERROR, WARN, INFO, TRACE, DEBUG, SPAM, or ALL
+  bindAddress     = '10.20.10.20'               // Specifies the bind address for the code server and web server
+  codeServerPort  = 9997                        // Specifies the TCP port for the code server (defaults to 9997)
+  warDir          = file("build/gwt/war")       // The directory into which deployable output files will be written
+  extraDir        = file("build/gwt/extra")     // The directory into which extra files, not intended for deployment, will be written
+  workDir         = file("build/gwt/work")      // The compiler's working directory for internal use (must be writeable; defaults to a system temp dir)
+  genDir          = file("build/gwt/gen")       // Debugging: causes normally-transient generated types to be saved in the specified directory
+}
+*/
+
+compileGwt {
+  style = 'DETAILED' // Script output style: OBF[USCATED], PRETTY, or DETAILED (defaults to OBF)
+  compileReport = true
+}
+
+gwtDevMode {
+    startupUrls = ['/']
+}

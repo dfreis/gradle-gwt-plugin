@@ -1,5 +1,5 @@
 /*
-   Copyright 2010 Distinctive Edge Ltd
+   Copyright 2011 the original author or authors.
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import org.apache.tools.ant.taskdefs.Expand
  *
  * @author Markus Kobler
  */
-class GwtDevModeTask extends AbstractGwtTask {    
+class GwtDevMode extends AbstractGwtTask {
 
     static final String DEVMODE_CLASSNAME = 'com.google.gwt.dev.DevMode'
 
