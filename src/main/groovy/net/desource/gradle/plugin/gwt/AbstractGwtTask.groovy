@@ -1,5 +1,5 @@
 /*
-   Copyright 2011 Distinctive Edge Ltd
+   Copyright 2011 the original author or authors.
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -47,7 +47,7 @@ abstract class AbstractGwtTask extends ConventionTask {
     protected void configureAntClasspath(AntBuilder ant, Iterable classpath) {
         ant.path(id: GWT_CLASSPATH_ID) {
             classpath.each {
-                logger.debug("Add {} to GWT classpath!", it)
+                logger.debug("GWT classpath {}", it)
                 pathelement(location: it)
             }
         }
