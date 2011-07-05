@@ -74,5 +74,8 @@ idea {
     }
 }
 
-
-
+//  Wrapper stuff.
+task wrapper ( type : Wrapper ) {
+  gradleVersion = '1.0-milestone-3'
+  jarFile = 'wrapper/gradle-wrapper.jar'
+}
