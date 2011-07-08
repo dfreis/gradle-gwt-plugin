@@ -28,7 +28,7 @@ class Gwt2PluginConvention {
 
     List<String> gwtModules
 
-    String excludePattern = ".*/client/.*"
+    String excludePattern = "(.*/client/.*)|(.*/public/.*)|(.*.gwt.xml)"
 
     Gwt2PluginConvention(project) {
         this.project = project
