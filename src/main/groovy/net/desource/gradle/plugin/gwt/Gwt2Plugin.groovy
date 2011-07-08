@@ -29,6 +29,7 @@ import org.gradle.api.execution.TaskExecutionGraph
 import org.gradle.api.artifacts.ExternalModuleDependency
 import org.gradle.api.internal.artifacts.dependencies.DefaultExternalModuleDependency
 import org.gradle.api.tasks.testing.Test
+import org.gradle.api.tasks.bundling.War
 
 /**
  *
@@ -56,6 +57,8 @@ class Gwt2Plugin implements Plugin<Project> {
         addGwtDevModeTask(project)
 
         configureTestTaskDefaults(project)
+
+        excludeFiles(project)
 
         // disabled for time being
 //        addSyncCompiledGwtTask(project)
@@ -181,9 +184,25 @@ class Gwt2Plugin implements Plugin<Project> {
         return webappDir;
     }
 
+    private void excludeFiles(final Project project) {
+        project.tasks.withType(War.class).all { War war ->
 
+            def excludePattern = project.convention.getPlugin(Gwt2PluginConvention.class).excludePattern
 
-//    XXX reimplement
+            if( excludePattern != null && excludePattern.length() > 0) {
+                war.doFirst {
+                    copyAction.rootSpec.eachFile { details ->
+                        if (details.path.matches(excludePattern)) {
+                            war.getLogger().debug("Excluding : {}", details.path);
+                            details.exclude()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+//    XXX re-implement?
 //    ====================================================================================================================
 //    private void configureGwtDependenciesIfVersionSpecified(final Project project, final Gwt2PluginConvention convention) {
 //        project.getGradle().getTaskGraph().whenReady {TaskExecutionGraph taskGraph ->

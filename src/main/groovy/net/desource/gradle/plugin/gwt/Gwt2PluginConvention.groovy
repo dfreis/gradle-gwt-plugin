@@ -26,10 +26,9 @@ class Gwt2PluginConvention {
 
     Project project
 
-// removed automatically adding correct libraries for the time being
-//    String gwtVersion
-
     List<String> gwtModules
+
+    String excludePattern = ".*/client/.*"
 
     Gwt2PluginConvention(project) {
         this.project = project
@@ -41,6 +40,10 @@ class Gwt2PluginConvention {
 
     void setGwtModule(String module) {
         gwtModules = [module]
+    }
+
+    void setGwtVersion(String version) {
+        project.logger.warn("gwtVersion Not Supported, explicitly define dependenices")
     }
 
 }
