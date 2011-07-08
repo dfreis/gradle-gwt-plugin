@@ -38,11 +38,6 @@ libraries = [
         slf4j_jdk14:   'org.slf4j:slf4j-jdk14:1.6.1@jar',
 ]
 
-libraries.spock = [ 'org.spockframework:spock-core:0.5-groovy-1.7@jar',
-                    libraries.hamcrest_core,
-                    libraries.objenesis,
-                    libraries.cglib ]
-
 libraries.jmock = [ 'org.jmock:jmock:2.5.1@jar',
                     'org.jmock:jmock-junit4:2.5.1@jar',
                     'org.jmock:jmock-legacy:2.5.1@jar',
@@ -57,15 +52,14 @@ dependencies {
 
     compile gradleApi()
 
-    testCompile libraries.junit, libraries.jmock, libraries.spock, libraries.slf4j_jdk14
+    testCompile libraries.junit, libraries.jmock, libraries.slf4j_jdk14
 
 }
 
-
-
 idea {
     module {
-        excludeDirs += file('wrapper')
+        excludeDirs += file('repo/')
+        excludeDirs += file('wrapper/')
     }
 
     project {
